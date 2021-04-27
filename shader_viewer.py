@@ -1,33 +1,21 @@
-import pathlib
-import scene
-import ui
-import editor
+import scene, editor, pathlib, ui
 
 src = editor.get_text()
+#_img = ui.Image.named('sample.png')
+#_img = ui.Image.named('dummy.PNG')
+#_img = ui.Image.named('Kanata_1024.png')
+#_img = ui.Image.named('unity.png')
+#_img = ui.Image.named('pix.PNG')
+#img = scene.Texture(_img)
+#img = scene.Texture('test:Mandrill')
+img = None#scene.Texture('_UVCheckerMap01-512.png')
+
 
 
 class MyScene(scene.Scene):
   def setup(self):
     node = scene.Node(self.size / 2)
     self.add_child(node)
-    self.create_guide_line()
-    
-    self.shdr = scene.SpriteNode(parent=self)
-    self.shdr.texture = img
-    _x = self.size.x * .88
-    self.shdr.size = (_x, _x)
-    #shdr.size=self.size
-    self.shdr.shader = scene.Shader(src)
-    self.shdr.shader.set_uniform('u_resolution', (_x, _x))
-    # todo: Initial position before touching
-    self.shdr.shader.set_uniform('u_offset', (0.5, 0.5))
-
-    sp_node.size = self.shdr.size
-    sp_node.color = 'darkslategray'
-    #sp_node.color = 'skyblue'
-    self.did_change_size()
-    
-  def create_guide_line(self):
     sp_node = scene.ShapeNode(parent=node)
     x_line = scene.ShapeNode(parent=node)
     x_path = ui.Path()
@@ -42,6 +30,21 @@ class MyScene(scene.Scene):
     y_path.line_to(self.size.x, self.size.y)
     y_line.path = y_path
     y_line.stroke_color = 'maroon'
+
+    self.shdr = scene.SpriteNode(parent=self)
+    #self.shdr.texture = img
+    _x = self.size.x * .88
+    self.shdr.size = (_x, _x)
+    #shdr.size=self.size
+    self.shdr.shader = scene.Shader(src)
+    self.shdr.shader.set_uniform('u_resolution', (_x, _x))
+    # todo: Initial position before touching
+    self.shdr.shader.set_uniform('u_offset', (0.5, 0.5))
+
+    sp_node.size = self.shdr.size
+    sp_node.color = 'darkslategray'
+    #sp_node.color = 'skyblue'
+    self.did_change_size()
 
   def did_change_size(self):
     # todo: Center the image
@@ -59,6 +62,10 @@ class MyScene(scene.Scene):
       dx = local_touch[0] / self.shdr.size[0]
       dy = local_touch[1] / self.shdr.size[1]
       self.shdr.shader.set_uniform('u_offset', (dx, dy))
+
+
+main = MyScene()
+
 
 
 if __name__ == '__main__':
@@ -96,15 +103,11 @@ void main(){
   //gl_FragColor = texture2D(u_texture, uv);
   
 }
-
-
-
-
   '''
 
-
-
-
-main = MyScene()
 scene.run(main, show_fps=True, frame_interval=0)
+
+
+
+
 
