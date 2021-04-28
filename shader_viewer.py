@@ -64,7 +64,7 @@ class MyScene(scene.Scene):
       self.shdr.shader.set_uniform('u_offset', (dx, dy))
 
 
-main = MyScene()
+
 
 
 
@@ -104,7 +104,7 @@ void main(){
   
 }
   '''
-
+main = MyScene()
 scene.run(main, show_fps=True, frame_interval=0)
 
 
