@@ -1,15 +1,9 @@
+# todo: Pythonista のショートカット機能を使ってね📲
+
 import scene, editor, pathlib, ui
 
 src = editor.get_text()
-#_img = ui.Image.named('sample.png')
-#_img = ui.Image.named('dummy.PNG')
-#_img = ui.Image.named('Kanata_1024.png')
-#_img = ui.Image.named('unity.png')
-#_img = ui.Image.named('pix.PNG')
-#img = scene.Texture(_img)
-#img = scene.Texture('test:Mandrill')
-img = None#scene.Texture('_UVCheckerMap01-512.png')
-
+img = None  #scene.Texture('_UVCheckerMap01-512.png')
 
 
 class MyScene(scene.Scene):
@@ -64,50 +58,6 @@ class MyScene(scene.Scene):
       self.shdr.shader.set_uniform('u_offset', (dx, dy))
 
 
-
-
-
-
-if __name__ == '__main__':
-  src = '''
-  precision highp float;
-
-uniform float u_time;
-uniform vec2 u_sprite_size;
-//uniform float u_scale;
-uniform sampler2D u_texture;
-//uniform vec4 u_tint_color;
-//uniform vec4 u_fill_color;
-varying vec2 v_tex_coord;
-
-
-void main(){
-  float t = u_time;
-  vec2 uv = (v_tex_coord- vec2(0.5)) *2.0;
-  
-  vec3 cPos = vec3(0.0,  0.0,  3.0); // カメラの位置
-  vec3 cDir = vec3(0.0,  0.0, -1.0); // カメラの向き(視線)
-  vec3 cUp  = vec3(0.0,  1.0,  0.0); // カメラの上方向
-  vec3 cSide = cross(cDir, cUp);     // 外積を使って横方向を算出
-  float targetDepth = 0.1;           // フォーカスする深度
-    
-  // ray
-  vec3 ray = normalize(cSide * uv.x + cUp * uv.y + cDir * targetDepth);
-    
-  
-  
-  uv = uv / 2.0 + vec2(0.5);
-  if (uv.x<0.0 || uv.x>1.0 || uv.y<0.0 || uv.y>1.0) discard;
-  gl_FragColor = vec4(ray.xy, -ray.z, 1.0);
-  //gl_FragColor = vec4(uv.x, uv.y, 0.0, 1.0);
-  //gl_FragColor = texture2D(u_texture, uv);
-  
-}
-  '''
 main = MyScene()
 scene.run(main, show_fps=True, frame_interval=0)
-
-
-
-
 
