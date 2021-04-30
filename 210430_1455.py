@@ -9,6 +9,9 @@ uniform sampler2D u_texture;
 varying vec2 v_tex_coord;
 
 
+// https://qiita.com/doxas/items/477fda867da467116f8d
+// とりあえず球出してみっか！！！
+
 struct Ray {
   vec3 origin;  // 視点
   vec3 direction;  // 方向

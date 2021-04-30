@@ -9,6 +9,8 @@ uniform sampler2D u_texture;
 varying vec2 v_tex_coord;
 
 
+// https://qiita.com/doxas/items/477fda867da467116f8d
+// とりあえず色出してみっか！！
 struct Ray{
   vec3 origin;
   vec3 direction;
